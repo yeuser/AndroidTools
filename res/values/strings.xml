@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--  -->
+    <string name="hello_world" translatable="false">Hello world!</string>
+    <string name="more" translatable="false">بیشتر</string>
+    <string name="error" translatable="false">خطا</string>
+    <string name="action_help" translatable="false">راهنما</string>
+    <string name="action_settings" translatable="false">تنظیمات</string>
+    <!--  -->
+    <string name="nil" translatable="false"></string>
+    <string name="mixedpack" translatable="false">MixedPack</string>
+    <string name="layout" translatable="false">default layout</string>
+    <!--  -->
+    <string name="lorem_ipsum_1" translatable="false">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras mollis ultricies est vel varius. Vivamus ultricies vehicula tortor, vel consectetur lectus mattis nec. Aenean ut odio sapien. Fusce in aliquet sem. Nullam turpis lectus, tincidunt vel orci nec, posuere gravida purus. Maecenas tincidunt ac mauris eget vehicula. Nulla facilisi. In tempor efficitur felis vitae rhoncus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in erat purus. Vestibulum finibus malesuada interdum. Suspendisse sed justo quam.</string>
+    <string name="lorem_ipsum_2" translatable="false">Mauris sit amet mi ante. Integer purus mi, congue in ultrices at, molestie ut libero. Donec id magna odio. Nunc vel sodales diam. Duis nec sapien nec risus fermentum mollis et at mi. Vestibulum enim ipsum, luctus id enim in, eleifend sodales turpis. Etiam et leo suscipit, semper nisl a, eleifend ipsum. Nulla ut diam iaculis, semper mi vitae, pulvinar orci. Donec vestibulum vel lectus ut suscipit. Donec a suscipit tortor. Sed at ipsum ut sapien efficitur euismod euismod at tortor. Sed vel neque eu ex blandit vestibulum.</string>
+    <string name="lorem_ipsum_3" translatable="false">Nulla dictum arcu id ipsum consequat interdum. Donec cursus ipsum at urna mattis, at elementum dui rutrum. In ac tempor sapien. Pellentesque sed consequat lacus, eget vestibulum felis. Praesent magna ante, luctus fermentum mollis nec, mollis quis nisi. Sed dui libero, bibendum sed nisi ac, rutrum efficitur metus. Nulla aliquam porttitor sagittis. Praesent scelerisque risus et nulla condimentum, quis finibus eros rhoncus. Nunc in maximus nisi. Aenean sodales lectus eget diam porta gravida. Quisque at feugiat lectus. Fusce lacus massa, rhoncus id molestie sed, vestibulum eget justo. Nulla magna nibh, congue a luctus non, fringilla sed libero.</string>
+    <string name="lorem_ipsum_4" translatable="false">Ut fringilla elementum lorem, at viverra lorem elementum eget. Ut dignissim vitae purus non facilisis. Aliquam erat volutpat. Phasellus scelerisque tellus dolor, ut lacinia ex facilisis ac. Aliquam scelerisque risus quis tempor interdum. Nullam suscipit nisl nisl, ac accumsan velit pretium eget. Nulla mollis feugiat orci eu tempus.</string>
+    <string name="lorem_ipsum_5" translatable="false">Phasellus finibus posuere lectus vel maximus. Vivamus nibh ligula, tincidunt quis tincidunt sit amet, rutrum a nunc. Duis consequat, urna quis eleifend fermentum, mi ligula auctor orci, varius sodales tellus tellus in ante. Nunc aliquam ante quis nisi dignissim laoreet. Nullam finibus enim ipsum, ac finibus nisi venenatis nec. In eget nibh pellentesque, tincidunt nunc sed, faucibus purus. Aliquam erat volutpat. Sed eget nisl magna. Nulla fringilla ante a dolor tempus, eu scelerisque justo consectetur. Nulla id enim at odio facilisis vehicula eget quis justo. Fusce mollis tincidunt mauris ac pellentesque. Sed ex quam, tincidunt at est vitae, sollicitudin efficitur arcu. Sed sed pulvinar nunc, in semper neque. </string>
+    <string name="sample_mixed_rtl" translatable="false">مطالب اصلی :\n
+\n
+    اصول مقدماتي سرويس هاي ارزش افزوده مانند(SMS و MMS و   VMS و OTA و WAP وMCA)\n
+    آشنايي با سيستمهاي VAS\n
+    شناخت اصول سيگنالينگ\n
+    آشنايي با اصول انتقال\n
+    طراحي و مهندسي شبكه هايVAS\n
+    نصب و راه اندازي انواع شبكه هاي VAS\n
+    سوپر وايزري انواع شبكه هاي VAS\n
+    نگهداري و پشتيباني انواع شبكه هاي VAS\n
+    مهندسي كيفيت شبكه هايVAS و نسلهاي بعدي شبكه هاي VAS\n
+    آشنايي با شركت هاي CP و نحوه اتصال و خدمات اين شركتها\n
+    آشنايي با شبكه VAS ايران</string>
+    <string name="loading" translatable="false">بارگزاری &#8230;</string>
+    <!--  -->
+    <string name="form_ok" translatable="false">ادامه</string>
+    <string name="form_cancel" translatable="false">بازگشت</string>
+
+</resources>
