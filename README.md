@@ -4,8 +4,8 @@ Many outstanding "Image Loading" libraries for android could be found over the n
 Also, local file cache, blind network cache, client-server insteractions, device specific ID and background multi-threading over android
 
 This android library answer these questions:
-* [How to <b>download</b> a file from the Net?](#how1)
-* [How can I get a BitmapImage from an <b>internet source</b>? Is it cached locally?](#how2)
+* [How to <b>download</b> a file from the Net?](#how-to-download-a-file-from-the-net-internetcacher)
+* [How can I get a BitmapImage from an <b>internet source</b>? Is it cached locally?](#how-can-i-get-a-bitmapimage-from-an-internet-source-is-it-cached-locally-androidnetgrabber)
 * [How can I have a <b>local gallery</b> as a cached version of an <b>internet source</b>?](#how3)
 
 ### Notice:
