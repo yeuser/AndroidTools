@@ -22,6 +22,7 @@ import android.os.Build;
 
 import com.google.gson.Gson;
 import com.mixedpack.tools.ActivityBlocker;
+import com.mixedpack.tools.android.AndroidUtils;
 
 @SuppressWarnings("deprecation")
 public class InternetCacher {
@@ -31,6 +32,8 @@ public class InternetCacher {
   private static Semaphore      instantiation_lock = new Semaphore(1);
   private static Semaphore      data_file_lock     = new Semaphore(1);
   private LocalData             localData;
+  private ActivityBlocker       downloadBlocker    = new ActivityBlocker();
+  private ExecutorService       threadPool         = Executors.newFixedThreadPool(2);
   private final static Logger   logger             = Logger.getLogger(InternetCacher.class);
 
   public class LocalData {
@@ -104,11 +107,16 @@ public class InternetCacher {
     return instance;
   }
 
-  private ActivityBlocker downloadBlocker = new ActivityBlocker();
-  private ExecutorService threadPool      = Executors.newFixedThreadPool(2);
-
-  public void shutdownAllNow() {
-    threadPool.shutdownNow();
+  public File hitCache(String name, File dir) throws InterruptedException, ExecutionException {
+    final File file = new File(dir, name);
+    if (file.exists()) {
+      if (logger.isTraceEnabled())
+        logger.trace("[file.exists()]:true<-hitCache(name=" + name + ",dir=" + dir + ")");
+      return file;
+    }
+    if (logger.isTraceEnabled())
+      logger.trace("[file.exists()]:false<-hitCache(name=" + name + ",dir=" + dir + ")");
+    return null;
   }
 
   public File fetchFile(String url, String host, final String name, File dir, boolean force) throws InterruptedException, ExecutionException {
@@ -123,7 +131,6 @@ public class InternetCacher {
     }
     if (logger.isTraceEnabled())
       logger.trace("[!force && file.exists()]:false<-fetchFile(url=" + url + ",name=" + name + ",dir=" + dir + ",force=" + force + ")");
-    // File f = new Downloader(dir).execute(new DownloadTask(url, host, name)).get()[0];
     File f = new File(dir, name);
     try {
       f = fetch_remote(url, host, f);
@@ -131,46 +138,16 @@ public class InternetCacher {
       if (logger.isEnabledFor(Priority.ERROR))
         logger.error("doInBackground Error", t);
     }
-    // File f = fetch_remote(url, file);
     downloadBlocker.release(name);
     return f;
   }
 
-  public File hitCache(String name, File dir) throws InterruptedException, ExecutionException {
-    final File file = new File(dir, name);
-    if (file.exists()) {
-      if (logger.isTraceEnabled())
-        logger.trace("[file.exists()]:true<-hitCache(name=" + name + ",dir=" + dir + ")");
-      return file;
-    }
-    if (logger.isTraceEnabled())
-      logger.trace("[file.exists()]:false<-hitCache(name=" + name + ",dir=" + dir + ")");
-    return null;
+  public File fetchFile(String url, String host, String name, File dir) throws InterruptedException, ExecutionException {
+    return fetchFile(url, host, name, dir, false);
   }
 
-  public File getStoredFile(String url, String host, final String name, File dir) throws InterruptedException, ExecutionException {
-    final File file = new File(dir, name);
-    file.getParentFile().mkdirs();
-    downloadBlocker.acquire(name);
-    if (file.exists()) {
-      if (logger.isTraceEnabled())
-        logger.trace("[file.exists()]:true<-getStoredFile(url=" + url + ",name=" + name + ",dir=" + dir + ")");
-      downloadBlocker.release(name);
-      return file;
-    }
-    if (logger.isTraceEnabled())
-      logger.trace("[file.exists()]:false<-getStoredFile(url=" + url + ",name=" + name + ",dir=" + dir + ")");
-    // File f = new Downloader(dir).execute(new DownloadTask(url, host, name)).get()[0];
-    File f = new File(dir, name);
-    try {
-      f = fetch_remote(url, host, f);
-    } catch (Throwable t) {
-      if (logger.isEnabledFor(Priority.ERROR))
-        logger.error("doInBackground Error", t);
-    }
-    // File f = fetch_remote(url, file);
-    downloadBlocker.release(name);
-    return f;
+  public void shutdownAllNow() {
+    threadPool.shutdownNow();
   }
 
   private File fetch_remote(final String url, final String host, final File file) throws InterruptedException, ExecutionException {
@@ -249,8 +226,6 @@ public class InternetCacher {
             }
             InputStream in = con.getInputStream();
             out.seek(downloaded);
-            // InputStream in = new URL(url).openStream();
-            // FileOutputStream out = new FileOutputStream(file);
             byte[] b = new byte[63 * 1024];
             int avail = in.available();
             avail = Math.max(100, Math.min(b.length, avail));
@@ -313,7 +288,6 @@ public class InternetCacher {
       data_file_lock.acquire();
       try {
         AndroidUtils.getInstance().saveObjectToFile(DATA_FILE_NAME, localData);
-        // AndroidUtils.getInstance().saveObjectToExtFile(DATA_FILE_NAME, localData);
       } catch (Throwable t) {
         if (logger.isEnabledFor(Priority.ERROR))
           logger.error("saveData Error", t);
@@ -324,41 +298,4 @@ public class InternetCacher {
         logger.error("data_file_lock Error", e1);
     }
   }
-  // private class DownloadTask {
-  // String url;
-  // String host;
-  // String name;
-  //
-  // public DownloadTask(String url, String host, String name) {
-  // this.url = url;
-  // this.host = host;
-  // this.name = name;
-  // }
-  // }
-  // private class Downloader extends AsyncTask<DownloadTask, Integer, File[]> {
-  // private File dir;
-  //
-  // Downloader(File dir) {
-  // this.dir = dir;
-  // }
-  //
-  // @Override
-  // protected File[] doInBackground(DownloadTask... url_names) {
-  // File[] ret = new File[url_names.length];
-  // for (int i = 0; i < ret.length; i++) {
-  // File file = new File(dir, url_names[i].name);
-  // try {
-  // ret[i] = fetch_remote(url_names[i].url, url_names[i].host, file);
-  // } catch (Throwable t) {
-  // if(logger.isEnabledFor(Priority.ERROR))logger.error("doInBackground Error", t);
-  // }
-  // }
-  // return ret;
-  // }
-  //
-  // @Override
-  // protected void onProgressUpdate(Integer... values) {
-  // super.onProgressUpdate(values);
-  // }
-  // }
 }

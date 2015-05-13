@@ -22,6 +22,9 @@ import android.os.Build;
 import android.os.Handler;
 import android.widget.ImageView;
 
+import com.mixedpack.tools.android.AndroidUtils;
+import com.mixedpack.tools.android.InternetCacher;
+
 @SuppressWarnings("deprecation")
 public class AndroidNetGrabber {
   private static AndroidNetGrabber instance                  = null;
@@ -72,24 +75,12 @@ public class AndroidNetGrabber {
     return instance;
   }
 
-  // @SuppressWarnings("unused")
-  // private File getPrivateCachedFile(String url, String name) throws InterruptedException, ExecutionException {
-  // return InternetCacher.getInstance().getStoredFile(url, name, GeneralParams.INT_DATA_DIR);
-  // }
   private File fetchFile(String name) throws InterruptedException, ExecutionException {
-    return getSDCachedFile(REMOTE_MEDIA_PATH + name, REMOTE_MEDIA_HOST, name);
+    return fetchFile(name, false);
   }
 
   private File fetchFile(String name, boolean force) throws InterruptedException, ExecutionException {
-    return getSDCachedFile(REMOTE_MEDIA_PATH + name, REMOTE_MEDIA_HOST, name, force);
-  }
-
-  private File getSDCachedFile(String url, String host, String name, boolean force) throws InterruptedException, ExecutionException {
-    return InternetCacher.getInstance().fetchFile(url, host, name, DATA_DIR, force);
-  }
-
-  private File getSDCachedFile(String url, String host, String name) throws InterruptedException, ExecutionException {
-    return InternetCacher.getInstance().getStoredFile(url, host, name, DATA_DIR);
+    return InternetCacher.getInstance().fetchFile(REMOTE_MEDIA_PATH + name, REMOTE_MEDIA_HOST, name, DATA_DIR, force);
   }
 
   private File hitSDCache(String name) throws InterruptedException, ExecutionException {
